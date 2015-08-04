@@ -29,6 +29,7 @@ var c = new Crawler({
 	    				if (index == 2) student.ho_ten = $(td).text();
 	    				if (index == 3) student.so_bao_danh = $(td).text();
 	    				if (index == 4) student.uu_tien_nguyen_vong = $(td).text();
+	    				if (index == 5) student.to_hop_mon = $(td).text();
 	    				if (index == 6) student.tong_diem = $(td).text();
 	    			});
 	    			console.log(student);
