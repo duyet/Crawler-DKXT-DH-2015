@@ -23,17 +23,17 @@ var c = new Crawler({
 	    			page_url = page_url[0].split('/').pop();
 	    			//page_url = page_url.substr(page_url.lastIndexOf('/') + 1);
 	    			// console.log(page_url);
-	    			student.branch_id = page_url;   // "txt"
+	    			student.ma_truong = "UIT";
+	    			student.ma_nganh = page_url;   // "txt"
 	    			td.each(function(index, td) {
-	    				if (index == 2) student.name = $(td).text();
-	    				if (index == 3) student.uid = $(td).text();
-	    				if (index == 4) student.nguyenvong_index = $(td).text();
-	    				if (index == 6) student.score_sum = $(td).text();
+	    				if (index == 2) student.ho_ten = $(td).text();
+	    				if (index == 3) student.so_bao_danh = $(td).text();
+	    				if (index == 4) student.uu_tien_nguyen_vong = $(td).text();
+	    				if (index == 6) student.tong_diem = $(td).text();
 	    			});
 	    			console.log(student);
 	    			var kitty = new model(student);
 					kitty.save(function (err) {
-					  
 					  console.log('meow');
 					});
 	    		}
