@@ -68,14 +68,14 @@ function PostCode(industry_number, ma_khoi) {
 					var student = {
 						student_name: line_data.Hovaten || '',
 						student_id: line_data.Sobaodanh || '',
-						school_id: "UEH", // Ma~ truo`ng
-						industry_code: industry_number_to_code(industry_number), // Nga`nh 
+						school_id: "KSA", // Ma~ truo`ng
+						faculty_code: industry_number_to_code(industry_number), // Nga`nh 
 						subject_group: tohopmon(ma_khoi),
-						uu_tien_nguyen_vong: line_data.DoUutien, // So thu tu nguyen vong uu tien
+						priority: line_data.DoUutien, // So thu tu nguyen vong uu tien
 						//score_1 : { type: Number, default: 0 }, // Diem mon 1
 						//score_2 : { type: Number, default: 0 }, // Diem mon 2
 						//score_3 : { type: Number, default: 0 }, // Diem mon 3
-						diem_uu_tien: line_data.DiemUutien, // Diem uu tien
+						score_priority: line_data.DiemUutien, // Diem uu tien
 						score_sum : line_data.DiemThi, // Tong so diem
 					};
 
