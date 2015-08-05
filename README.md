@@ -33,7 +33,7 @@ node run
 # Module Progress
 
 [x] UIT: [Trường ĐH Công nghệ thông tin-ĐHQH HCM](http://tuyensinh.uit.edu.vn) <br />
-[&nbsp;&nbsp;] UEH: [Trường ĐH Kinh tế TP.HCM](http://tuyensinh.dev.ueh.edu.vn) <br />
+[x] UEH: [Trường ĐH Kinh tế TP.HCM](http://tuyensinh.dev.ueh.edu.vn) <br />
 [&nbsp;&nbsp;] YDS: [Trường ĐH Y dược TP.HCM](http://moodle.yds.edu.vn/yds2/tuyensinh/2015/yds_bangdiem.php) <br />
 [&nbsp;&nbsp;] CTU: [Trường ĐH Cần Thơ](http://kqxt.ctu.edu.vn/) <br />
 [&nbsp;&nbsp;] UFM: [Trường ĐH Tài Chính Marketing](http://xettuyen.ufm.edu.vn/) <br />
