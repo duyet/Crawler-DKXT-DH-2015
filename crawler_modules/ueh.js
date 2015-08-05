@@ -81,7 +81,7 @@ function PostCode(industry_number, ma_khoi) {
 
 					var saver = new Student(student);
 					saver.save(function (err, data) {
-					  console.log('Saved ', data.student_id);
+					  console.log('Saved ', data._id);
 					});
 				} catch (e) {
 					console.log("Parse data error, line: ", line);
