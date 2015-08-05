@@ -111,7 +111,7 @@ var industry = [
 	{"id": 8, "Ma":"D340301","Ten":"Kế toán"},
 	{"id": 9, "Ma":"D340405","Ten":"Hệ thống thông tin quản lý"},
 	{"id": 10, "Ma":"D380101","Ten":"Luật kinh doanh"},
-	//{"id": 11, "Ma":"D380101","Ten":"Tieng Anh Thuong Mai"},
+	//{"id": 11, "Ma":"DN","Ten":"Tieng Anh Thuong Mai"},
 ];
 
 console.log(">> Load UEH Crawler module...");

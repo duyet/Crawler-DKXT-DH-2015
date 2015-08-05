@@ -1,6 +1,6 @@
 var Crawler = require("crawler");
 var url = require('url');
-var model = require('../model');
+var Student = require('../model');
 
 var c = new Crawler({
     maxConnections : 10,
@@ -33,7 +33,7 @@ var c = new Crawler({
 	    				if (index == 6) student.score_sum = $(td).text();
 	    			});
 	    			console.log(student);
-	    			var kitty = new model(student);
+	    			var kitty = new Student(student);
 					kitty.save(function (err) {
 					  console.log('meow');
 					});
