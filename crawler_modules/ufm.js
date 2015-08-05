@@ -10,12 +10,6 @@ phantom.create(function (ph) {
         });
         phantom.exit()
       });
-      
-      console.log("opened google? ", status);
-        page.evaluate(function () { return document.title; }, function (result) {
-        console.log('Page title is ' + result);
-        ph.exit();
-      });
     });
   });
 });
