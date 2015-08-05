@@ -1,9 +1,9 @@
 'use strict';
 
 var mongoose = require('mongoose');
-mongoose.connect('mongodb://localhost/diemthi_dh');
+mongoose.connect('mongodb://localhost/admissions-dev');
 
-var thisinhSchema = new mongoose.Schema({
+var CandidateSchema = new mongoose.Schema({
 	student_name: String, // Ho va ten
 	student_id: { type: String }, // So bao danh
 	school_id: String, // Ma~ truo`ng
@@ -16,7 +16,7 @@ var thisinhSchema = new mongoose.Schema({
 	diem_uu_tien: { type: Number, default: 0 }, // Diem uu tien
 	score_sum : { type: Number, default: 0 }, // Tong so diem
 });
-thisinhSchema.index({student_id: 1, industry_code: 1}, {unique: true});
+CandidateSchema.index({student_id: 1, industry_code: 1}, {unique: true});
 
-var thisinh = mongoose.model('thisinh', thisinhSchema);
+var thisinh = mongoose.model('Candidate', CandidateSchema);
 module.exports = thisinh;
