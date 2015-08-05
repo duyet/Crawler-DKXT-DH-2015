@@ -23,7 +23,7 @@ var c = new Crawler({
 	    			page_url = page_url[0].split('/').pop();
 	    			//page_url = page_url.substr(page_url.lastIndexOf('/') + 1);
 	    			// console.log(page_url);
-	    			student.school_id = "QSC";
+	    			student.school_code = "QSC";
 	    			student.faculty_code = page_url;   // "txt"
 	    			td.each(function(index, td) {
 	    				if (index == 2) student.student_name = $(td).text();

@@ -23,10 +23,10 @@ var c = new Crawler({
     		a.each(function(index, _a) {
 	    		// console.log(tr);
 	    		var xls_file = $(_a).attr("href");
-                console.log(xls_file);
                 if (path.extname(xls_file) == ".xls") {
                     console.log(xls_file);
                     downloadFileWget(xls_file, function(file_path) {
+                            console.log("Start reading file " + file_path);
                             var workbook = XLSX.readFile(file_path);
                             var first_sheet_name = workbook.SheetNames[0];
                             var worksheet = workbook.Sheets[first_sheet_name];
@@ -37,7 +37,7 @@ var c = new Crawler({
                             	var student = {
                                     student_name: '',
                                     student_id: '',
-                                    school_id: "SGD", // Ma~ truo`ng
+                                    school_code: "SGD", // Ma~ truo`ng
                                     faculty_code: '', // Nga`nh 
                                     subject_group: '',
                                     priority: '', // So thu tu nguyen vong uu tien
