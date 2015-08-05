@@ -7,7 +7,7 @@ module.exports = {
 
 		// Module Ignore will not run
 		// Ex. ['tinhte.js']
-		ignoreModule: ['ufm'],
+		ignoreModule: [],
 	}
 	
 };
