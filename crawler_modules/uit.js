@@ -23,14 +23,14 @@ var c = new Crawler({
 	    			page_url = page_url[0].split('/').pop();
 	    			//page_url = page_url.substr(page_url.lastIndexOf('/') + 1);
 	    			// console.log(page_url);
-	    			student.ma_truong = "UIT";
-	    			student.ma_nganh = page_url;   // "txt"
+	    			student.school_id = "UIT";
+	    			student.industry_code = page_url;   // "txt"
 	    			td.each(function(index, td) {
-	    				if (index == 2) student.ho_ten = $(td).text();
-	    				if (index == 3) student.so_bao_danh = $(td).text();
+	    				if (index == 2) student.student_name = $(td).text();
+	    				if (index == 3) student.student_id = $(td).text();
 	    				if (index == 4) student.uu_tien_nguyen_vong = $(td).text();
-	    				if (index == 5) student.to_hop_mon = $(td).text();
-	    				if (index == 6) student.tong_diem = $(td).text();
+	    				if (index == 5) student.subject_group = $(td).text();
+	    				if (index == 6) student.score_sum = $(td).text();
 	    			});
 	    			console.log(student);
 	    			var kitty = new model(student);

@@ -3,8 +3,8 @@ var http = require('http');
 var fs = require('fs');
 var Student = require('../model');
 
-function PostCode(ma_nganh, ma_khoi) {
-	var post_data = '{"MaDotXet":"1","MaNganh":"'+ ma_nganh +'","MaKhoi":"'+ ma_khoi +'","MaUutien":"-1","ToDate":"8/3/2015"}';
+function PostCode(industry_number, ma_khoi) {
+	var post_data = '{"MaDotXet":"1","MaNganh":"'+ industry_number +'","MaKhoi":"'+ ma_khoi +'","MaUutien":"-1","ToDate":"8/3/2015"}';
 	// An object of options to indicate where to post to
 	var post_options = {
 		host: 'tuyensinh.dev.ueh.edu.vn',
@@ -66,17 +66,17 @@ function PostCode(ma_nganh, ma_khoi) {
 				try {
 					var line_data = JSON.parse(line);
 					var student = {
-						ho_ten: line_data.Hovaten || '',
-						so_bao_danh: line_data.Sobaodanh || '',
-						ma_truong: "UEH", // Ma~ truo`ng
-						ma_nganh: manganh(ma_nganh), // Nga`nh 
-						to_hop_mon: tohopmon(ma_khoi),
+						student_name: line_data.Hovaten || '',
+						student_id: line_data.Sobaodanh || '',
+						school_id: "UEH", // Ma~ truo`ng
+						industry_code: industry_number_to_code(industry_number), // Nga`nh 
+						subject_group: tohopmon(ma_khoi),
 						uu_tien_nguyen_vong: line_data.DoUutien, // So thu tu nguyen vong uu tien
-						//diem_1 : { type: Number, default: 0 }, // Diem mon 1
-						//diem_2 : { type: Number, default: 0 }, // Diem mon 2
-						//diem_3 : { type: Number, default: 0 }, // Diem mon 3
+						//score_1 : { type: Number, default: 0 }, // Diem mon 1
+						//score_2 : { type: Number, default: 0 }, // Diem mon 2
+						//score_3 : { type: Number, default: 0 }, // Diem mon 3
 						diem_uu_tien: line_data.DiemUutien, // Diem uu tien
-						tong_diem : line_data.DiemThi, // Tong so diem
+						score_sum : line_data.DiemThi, // Tong so diem
 					};
 
 					var saver = new Student(student);
@@ -99,8 +99,8 @@ function PostCode(ma_nganh, ma_khoi) {
 }
 
 // Include static data 
-var ma_khoi = [1,2,3];
-var nganh = [
+var group_id = [1,2,3];
+var industry = [
 	{"id": 1, "Ma":"D310101","Ten":"Kinh tế"},
 	{"id": 2, "Ma":"D340101","Ten":"Quản trị kinh doanh"},
 	{"id": 3, "Ma":"D340103","Ten":"Quản trị dịch vụ du lịch và lữ hành"},
@@ -117,10 +117,10 @@ var nganh = [
 console.log(">> Load UEH Crawler module...");
 
 // Helper functio ======================
-var manganh = function(id) {
-	if (!nganh) return '';
-	for (var i in nganh) {
-		if (nganh[i].id == id) return nganh[i].Ma;
+var industry_number_to_code = function(id) {
+	if (!industry) return '';
+	for (var i in industry) {
+		if (industry[i].id == id) return industry[i].Ma;
 	}
 	
 	return '';
@@ -134,8 +134,8 @@ var tohopmon = function(id) {
 	return "";
 }
 
-for (var i in nganh) {
-	for (var j in ma_khoi) {
-		PostCode(nganh[i].id, j);
+for (var i in industry) {
+	for (var j in group_id) {
+		PostCode(industry[i].id, j);
 	}
 }
