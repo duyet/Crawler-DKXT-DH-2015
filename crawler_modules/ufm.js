@@ -20,7 +20,10 @@ var Run = function(_faculty, _subjectGroup) {
   });
   
   req.end(function (res) {
-    if (res.error) throw new Error(res.error);
+    if (res.error) {
+      console.log("Please reset token: http://xettuyen.ufm.edu.vn/");
+      throw new Error(res.error);
+    }
     
     var env = require('jsdom').env;
     var html = res.body;
