@@ -54,7 +54,7 @@ var c = new Crawler({
                             		if (currentCell) {
                                         if (col == "B") student.faculty = student.faculty_code = currentCell.v; // Ma~ nga`nh 
                                         if (col == "D") student.student_id = currentCell.v; // SBD 
-                                        if (col == "E") student.priority = currentCell.v; // Do^ uu tie^n
+                                       // if (col == "E") student.priority = currentCell.v; // Do^ uu tie^n
                                         if (col == "F") student.subject_group = getSubjectGroup(currentCell.v);
                                         if (col == "I") student.score_1 = currentCell.v;
                                         if (col == "L") student.score_2 = currentCell.v;
