@@ -7,7 +7,8 @@ var CandidateSchema = new mongoose.Schema({
 	student_name: String, // Ho va ten
 	student_id: { type: String }, // So bao danh
 	school_code: String, // Ma~ truo`ng
-	faculty_code: String, // Nga`nh 
+	faculty_code: { type: String, default: "" }, // Nga`nh 
+	faculty: { type: String, default: "" }, // Nga`nh (ma~ go^'c) 
 	subject_group: String,
 	priority: { type: Number, default: 0 }, // So thu tu nguyen vong uu tien
 	score_1 : { type: Number, default: 0 }, // Diem mon 1
