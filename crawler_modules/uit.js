@@ -24,7 +24,9 @@ var c = new Crawler({
 	    			//page_url = page_url.substr(page_url.lastIndexOf('/') + 1);
 	    			// console.log(page_url);
 	    			student.school_code = "QSC";
-	    			student.faculty_code = page_url;   // "txt"
+	    			student.faculty = page_url;   // "txt"
+					page_url = page_url.split('_');
+					if (page_url[0]) student.faculty_code = page_url[0];
 	    			td.each(function(index, td) {
 	    				if (index == 2) student.student_name = $(td).text();
 	    				if (index == 3) student.student_id = $(td).text();

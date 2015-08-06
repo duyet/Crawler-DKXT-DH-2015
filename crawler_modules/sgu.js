@@ -52,7 +52,7 @@ var c = new Crawler({
                                     var cell = col + row;
                             		var currentCell = worksheet[cell];
                             		if (currentCell) {
-                                        if (col == "B") student.faculty_code = currentCell.v; // Ma~ nga`nh 
+                                        if (col == "B") student.faculty = student.faculty_code = currentCell.v; // Ma~ nga`nh 
                                         if (col == "D") student.student_id = currentCell.v; // SBD 
                                         if (col == "E") student.priority = currentCell.v; // Do^ uu tie^n
                                         if (col == "F") student.subject_group = getSubjectGroup(currentCell.v);

@@ -69,7 +69,8 @@ function PostCode(industry_number, ma_khoi) {
 						student_name: line_data.Hovaten || '',
 						student_id: line_data.Sobaodanh || '',
 						school_code: "KSA", // Ma~ truo`ng
-						faculty_code: industry_number_to_code(industry_number), // Nga`nh 
+						faculty_code: industry_number_to_code(industry_number), // Nga`nh
+						faculty: industry_number_to_code(industry_number), // Nga`nh 
 						subject_group: tohopmon(ma_khoi),
 						priority: line_data.DoUutien, // So thu tu nguyen vong uu tien
 						//score_1 : { type: Number, default: 0 }, // Diem mon 1
