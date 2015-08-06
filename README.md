@@ -36,6 +36,7 @@ node run
 [x] UEH: [Trường ĐH Kinh tế TP.HCM](http://tuyensinh.dev.ueh.edu.vn) <br />
 [&nbsp;&nbsp;] YDS: [Trường ĐH Y dược TP.HCM](http://moodle.yds.edu.vn/yds2/tuyensinh/2015/yds_bangdiem.php) <br />
 [&nbsp;&nbsp;] CTU: [Trường ĐH Cần Thơ](http://kqxt.ctu.edu.vn/) <br />
+[x] SGU: [Trường DH Sài Gòn](http://www.sgu.edu.vn/index.php?option=com_content&view=article&id=4411%3Adanh-sach-thi-sinh-ng-ki-xet-tuyn-nguyn-vng-i-n-ht-ngay-03082015&catid=475%3Atuyn-sinh-2015&Itemid=609) <br />
 [x] UFM: [Trường ĐH Tài Chính Marketing](http://xettuyen.ufm.edu.vn/) <br />
 [&nbsp;&nbsp;] USSH: [Trường ĐH Nhân Văn - ĐHQG HCM](http://dt.hcmussh.edu.vn/?ArticleId=d6d7bff3-2b68-4c8e-9a07-03751f37cdc1) <br />
 
