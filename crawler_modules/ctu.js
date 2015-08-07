@@ -262,7 +262,7 @@ function range(start, count) {
 // =======================================
 for (var faculy_index in facultyList) {
 	for (var _tohop in [0, 1]) {
-		for (var page in range(1,50)) {
+		for (var page in range(1,150)) {
 			var faculty = facultyList[faculy_index].faculty.split("-");
 			var _manganh = faculty[0]; 
 			var _hoaan = parseInt(faculty[1]) || 0;	
