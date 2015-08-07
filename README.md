@@ -40,6 +40,7 @@ node run
 [x] UFM: [Trường ĐH Tài Chính Marketing](http://xettuyen.ufm.edu.vn/) <br />
 [&nbsp;&nbsp;] USSH: [Trường ĐH Nhân Văn - ĐHQG HCM](http://dt.hcmussh.edu.vn/?ArticleId=d6d7bff3-2b68-4c8e-9a07-03751f37cdc1) <br />
 [x] CTU: [Trường ĐH Cần Thơ](http://kqxt.ctu.edu.vn/) <br />
+[x] UDN: [Trường ĐH Bách Khoa Đà Nẵng](http://ts.udn.vn/TracuuHoso.aspx?iddot=3&keys=55446) <br />
 
 # Contact 
 
