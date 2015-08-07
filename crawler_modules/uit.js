@@ -32,12 +32,13 @@ var c = new Crawler({
 	    				if (index == 3) student.student_id = $(td).text();
 	    				if (index == 4) student.priority = $(td).text();
 	    				if (index == 5) student.subject_group = $(td).text();
-	    				if (index == 6) student.score_sum = $(td).text();
+	    				if (index == 6) student.score_sum = parseFloat($(td).text());
+						if (index == 7) student.score_priority = parseFloat($(td).text());
 	    			});
-	    			console.log(student);
+	    			//console.log(student);
 	    			var kitty = new Student(student);
-					kitty.save(function (err) {
-						console.log('meow');
+					kitty.save(function (err, student) {
+						console.log('Saved ', student._id);
 					});
 	    		}
 	    	});
