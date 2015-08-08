@@ -15,8 +15,8 @@ var Run = function(_faculty, _subjectGroup) {
     "ctl00$head$CmbNganh": _faculty,
     "ctl00$head$CmbTohop": _subjectGroup,
     "ctl00$head$BtnLoc": "Lọc",
-    "__VIEWSTATE": "/wEPDwULLTE1MjIwNjY5OTUPZBYCZg9kFgICAw9kFgICAQ9kFgQCAQ8PFgIeBFRleHQFCjA1LzA4LzIwMTVkZAILDzwrAAsAZGRyj0auJBDs11r3j08PW+LGSDMVfSC9Ylps0FIADeWbPg==",
-    "__EVENTVALIDATION": "/wEdABPrEMIOg3TvGZ4OgJaEnVtX9KTswEwckM4eZynZmsmbXx4Qxd37m4oMxKovJNZZE7kQ2Mc8CRG7tr+jE7MR25SYvBEJy+6sm1edMcM4ShqwpzbbvxsI4ZUOzHXB26onNU9ZlSueidLQz3jD8mD6oZkgddl8AEIDuwKRzOD/kCGorrKCkpm8M7EJDCLV02rwV0P27Dxkt1FP09p7/6LQA5C043yIQGyVwqC7E4vOSvrzJw+XS8tj28Vb4EAA2bJy4kpa4HDNhkWz4L2SPADe97nMGVgQX43QdqOw/IrvwDRtu8HTqimAdoTgD7TDtWh7tMsDiigLDg/vgX60Ff7ltEfsLMf80KdnVg/kEmRRDti4xjvCO/vpZvIEuaQngD22RXJymJ/foV4q1fxZ5KwTqMBA5RhZkbeN7CXYCmyKvQWl6fe2X6E6N/9EX+jy8DCjnVk="
+    "__VIEWSTATE": "/wEPDwUJMTkyNDY3OTc3D2QWAmYPZBYCAgMPZBYCAgEPZBYEAgEPDxYCHgRUZXh0BQowNy8wOC8yMDE1ZGQCDQ88KwALAGRkdPyNYdoIEHq9Wlvx2iftCdvWdUI3qwE2dTPssyEjOPc=",
+    "__EVENTVALIDATION": "/wEdABh0JwMZcIgSO1W6s0MBGW8x9KTswEwckM4eZynZmsmbXx4Qxd37m4oMxKovJNZZE7kQ2Mc8CRG7tr+jE7MR25SYvBEJy+6sm1edMcM4ShqwpzbbvxsI4ZUOzHXB26onNU9ZlSueidLQz3jD8mD6oZkgddl8AEIDuwKRzOD/kCGorrKCkpm8M7EJDCLV02rwV0P27Dxkt1FP09p7/6LQA5C043yIQGyVwqC7E4vOSvrzJw+XS8tj28Vb4EAA2bJy4kpa4HDNhkWz4L2SPADe97nMGVgQX43QdqOw/IrvwDRtu8HTqimAdoTgD7TDtWh7tMsDiigLDg/vgX60Ff7ltEfsLMf80KdnVg/kEmRRDti4xjvCO/vpZvIEuaQngD22RXJJ+aHyU3Lsi9JLuYkFBrMwyXKhh0KMyyidCyjBeVqJK6JUyd/W1JdRfFfcPSzikUv1dTVeXd8N8aU8Nwk0kVtfPkhsuixsryMpQJTjFzOOn3KYn9+hXirV/FnkrBOowEDXy5Wd9l8GMb/5tOyERhg9sQ4bVpR58ShWin4VQVt34g=="
   });
   
   req.end(function (res) {
@@ -57,16 +57,16 @@ var Run = function(_faculty, _subjectGroup) {
                   $.each(tds, function(n, td) {
                       if (n == 1) student.student_id = $(td).text().trim();
                       if (n == 2) student.student_name = $(td).text().trim();
-                      if (n == 3) student.priority = parseInt($(td).text().trim());
-                      if (n == 4) student.score_sum = parseFloat($(td).text().trim());
-                      if (n == 5) student.score_priority = parseFloat($(td).text().trim());
+                      if (n == 4) student.priority = parseInt($(td).text().trim());
+                      if (n == 5) student.score_sum = parseFloat($(td).text().trim());
+                      if (n == 6) student.score_priority = parseFloat($(td).text().trim());
                   });
                   
-                  console.log(student);
+                  // console.log(student);
                   var saver = new Student(student);
-        					saver.save(function (err, data) {
-        					  console.log('Saved ', data._id);
-        					});
+					saver.save(function (err, data) {
+					  console.log('Saved ', data._id);
+					});
             });
         }
     });
