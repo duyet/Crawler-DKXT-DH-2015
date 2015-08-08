@@ -1,49 +1,102 @@
-var url = require('url');
-var http = require('http');
-var path = require('path');
-var fs = require('fs');
-var exec = require('child_process').exec;
-var spawn = require('child_process').spawn;
-var XLSX = require('xlsx');
-
-var Student = require('../model');
 var Crawler = require("crawler");
+var url_module = require('url');
+var Student = require('../model');
 
-var downloadPath = "tmp/";
+var counter = 0;
 
-// Function to download file using wget
-var downloadFileWget = function(file_url, callback) {
+var c = new Crawler({
+    maxConnections : 500,
+    skipDuplicates: true,
+    // This will be called for each crawled page
+    callback : function (error, result, $) {
+    	 var rootUrl = 'http://ts.udn.vn/TracuuView.aspx';
+    	//var rootUrl = result.request.href || '';
 
-    // extract the file name
-    var file_name = getFileName(file_url);
-    // compose the wget command
-    var wget = 'wget -P ' + downloadPath + ' "' + file_url + '"';
-    // excute wget using child_process' exec function
+    	// Get data 
+    	var table = $('table tr');
+    	// console.log(table);
+    	if (table.length) {
+    		table.each(function(index, tr) {
+	    		// console.log(tr);
+	    		var td = $(tr).children('td');
+	    		if (td.length) {
+					var url_data = url_module.parse(result.request.href, true);
+					
+	    			var student = {};
+	    			student.school_code = "NLS";
+	    			
+					student.faculty = url_data.query.mn;
+					student.faculty_code = url_data.query.mn;
+					student.subject_group = getSubjectGroup(url_data.query.th);
+					student.priority = parseInt(url_data.query.nv);
+					
+					var id = parseInt($(td[0]).text());
+					if (id && id > 0) {
+						td.each(function(index, td) {
+	    						if (index == 2) student.student_id = $(td).text();
+								if (index == 1) student.student_name = $(td).text();
+	    						if (index == 5) student.score_priority = parseFloat($(td).text().trim());
+								if (index == 4) student.score_sum = parseFloat($(td).text());
+		    			});
+		    			//console.log(student);
+		    			var saver = new Student(student);
+						saver.save(function (err, st) {
+							console.log('Saved ['+ counter++ +'] ', st.student_id);
+						});	
+					}
+	    		}
+	    	});
+    	}
+    },
 
-    var child = exec(wget, function(err, stdout, stderr) {
-        if (err) throw err;
-        else { 
-            console.log(file_name + ' downloaded to ' + downloadPath);
-            if (callback) callback(downloadPath + '/' + file_name);
-        }
-    });
+    onDrain: function() {
+    	console.log(">> UAF Module finish.");
+    }
+});
+
+var subjectGroups = [
+	{ "key": "A00", "subject": "Toán-Lý-Hoá" },
+	{ "key": "A01", "subject": "Toán-Lý-Anh" },
+	{ "key": "B00", "subject": "Toán-Hóa-Sinh" },
+	{ "key": "D01", "subject": "Toán-Văn-Anh" },
+	{ "key": "D02", "subject": "Văn-Toán-Nga" },
+	{ "key": "D03", "subject": "Văn-Toán-Pháp" },
+	{ "key": "D04", "subject": "Văn-Toán-Trung" },
+	{ "key": "D06", "subject": "Văn-Toán-Nhật" },
+	{ "key": "D07", "subject": "Toán-Hóa-Anh" },
+	{ "key": "D08", "subject": "Toán-Sinh-Anh" },
+	{ "key": "C00", "subject": "Văn-Sử-Địa" },
+	{ "key": "C01", "subject": "Văn-Toán-Lý" },
+	{ "key": "V01", "subject": "Toán-Văn-Vẽ" },
+	{ "key": "N00", "subject": "Văn-NK-NK" },
+	{ "key": "M00", "subject": "Văn-Toán-NK" }
+];
+
+var getSubjectGroup = function(id) {
+	for (var i in subjectGroups) {
+		if (subjectGroups[i].key == id) return subjectGroups[i].subject;
+	}
+	
+	return "";
 };
 
-var getFileName = function(file_url) {
-  return url.parse(file_url).pathname.split('/').pop();    
-};
+var getScorePriority = function(religion) {
+	var scores = [
+		{ code: "KV1", score: 1.5}, 
+		{ code: "KV2-NT", score: 1.0},
+		{ code: "KV2", score: 0.5},
+		{ code: "KV3", score: 0.0},
+		
+	];
+	
+	for (var i in scores) {
+		if (religion == scores[i].code) return scores[i].score;
+	}
+	
+	return 0.0;
+}
 
-var getSubjectGroup = function(search) {
-      var a = [
-		  	{ "key": "A00", "subject": "Toán-Lý-Hoá" },
-			{ "key": "A01", "subject": "Toán-Lý-Anh" },
-			{ "key": "B00", "subject": "Toán-Hóa-Sinh" },
-			{ "key": "D01", "subject": "Toán-Văn-Anh" }
-      ];
-      
-      for (var id in a) if (a[id].key == search) return a[id].subject;
-      return "";
-};
+// =================================
 
 var industry = [
 	{"id" : "D140215", "Text": "Sư phạm kỹ thuật nông nghiệp"},
@@ -110,69 +163,13 @@ var industry = [
 	{"id" : "D850103N", "Text": "Quản lý đất đai (Phân hiệu Ninh Thuận)"}
 ];
 
-console.log(">> Load UAF Crawler module...");
+console.log("Start UAF Module...");
 
-// Helper functio ======================
-var industry_number_to_code = function(id) {
-	if (!industry) return '';
-	for (var i in industry) {
-		if (industry[i].id == id) return industry[i].Text;
+for (var i in industry) {
+	for (var subj in subjectGroups) {
+		for (var nv in [1,2,3,4]) {
+			var url = 'http://ts.hcmuaf.edu.vn/xemdsxt.php?mn='+ industry[i].id +'&th='+ subjectGroups[subj].key +'&nv=' + nv;
+			c.queue(url);
+		}
 	}
-	
-	return '';
-};
-
-console.log(">> Load UAF Crawler module...");
-
-downloadFileWget("http://ts.hcmuaf.edu.vn/data/file/Du%20lieu%20Tuyen%20sinh%202015/05082015(1).xls", function(file_path) {
-        console.log("Start reading file " + file_path);
-        var workbook = XLSX.readFile(file_path);
-        var first_sheet_name = workbook.SheetNames[0];
-        var worksheet = workbook.Sheets[first_sheet_name];
-        
-        // var alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-        var alphabet = "ABCDEFGHIJKLMNOPQRST";
-        for (var row = 6; row <= 500000; row++) {
-        	var student = {
-                student_name: '',
-                student_id: '',
-                school_code: "NLS", // Ma~ truo`ng
-                faculty_code: '', // Nga`nh 
-                subject_group: '',
-                priority: '', // So thu tu nguyen vong uu tien
-                score_1 : 0,
-                score_2 : 0,
-                score_3 : 0,
-                score_priority: 0,
-                score_sum : 0
-            };
-            for (var i=0; i < alphabet.length; i++) {
-        		var col = alphabet.charAt(i);
-                var cell = col + row;
-        		var currentCell = worksheet[cell];
-        		if (currentCell) {
-                    if (col == "B") student.faculty = student.faculty_code = currentCell.v; // Ma~ nga`nh 
-                    if (col == "D") student.student_id = currentCell.v; // SBD 
-                   // if (col == "E") student.priority = currentCell.v; // Do^ uu tie^n
-                    if (col == "F") student.subject_group = getSubjectGroup(currentCell.v);
-                    if (col == "I") student.score_1 = currentCell.v;
-                    if (col == "L") student.score_2 = currentCell.v;
-                    if (col == "O") student.score_3 = currentCell.v;
-                    if (col == "Q") student.score_priority = parseFloat(currentCell.v);
-                    if (col == "T") student.score_sum = parseFloat(currentCell.v) - student.score_priority;
-                }
-        	}
-			if (student.student_id.length) {
-				//console.log(student);
-				var saver = new Student(student);
-				saver.save(function (err, data) {
-				  console.log('Saved ', data.student_id);
-				});
-			}
-			
-            //var saver = new Student(student);
-			//saver.save(function (err, data) {
-			//  console.log('Saved ', data.student_id);
-			//});
-        }
-});
+}
