@@ -20,9 +20,10 @@ exports.queryData = function(req, res) {
   //keyword = '.*' + keyword + '.*';
   console.log('Searching "%s"...', keyword);
 
-  if (keyword.length) var q = Content.find({ "student_name": { "$regex": keyword, "$options": "i" } }).skip(page).limit(perpage);
-  else  var q = Content.find().skip(page).limit(perpage);
-  q.exec(function(err,docs) { 
+  var q;
+  if (keyword.length) q = Content.find({ "student_name": { "$regex": keyword, "$options": "i" } }).skip(page).limit(perpage);
+  else q = Content.find().skip(page).limit(perpage);
+  q.exec(function(err, docs) { 
       if (err) console.log(err);
 
       res.json(docs);
