@@ -36,7 +36,7 @@ var c = new Crawler({
 	    					if (index == 6) student.score_priority = parseFloat($(td).text());
 							if (index == 7) student.score_sum = parseFloat($(td).text());
 	    			});
-	    			console.log(student);
+	    			//console.log(student);
 	    			var saver = new Student(student);
 					saver.save(function (err, st) {
 						console.log('Saved ['+ counter++ +'] ', st.student_id);
