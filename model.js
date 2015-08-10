@@ -16,8 +16,19 @@ var CandidateSchema = new mongoose.Schema({
 	score_3 : { type: Number, default: 0 }, // Diem mon 3
 	score_priority: { type: Number, default: 0 }, // Diem uu tien
 	score_sum : { type: Number, default: 0 }, // Tong so diem
+	
+	created: { type: Date },
+	lasted_update: { type: Date },
 });
-CandidateSchema.index({student_id: 1, faculty_code: 1}, {unique: true});
+CandidateSchema.index({student_id: 1, faculty_code: 1, school_code: 1}, {unique: true});
+
+CandidateSchema.pre('save', function(next){
+	var now = new Date();
+	this.created = now;
+	this.lasted_update = now;
+	
+	next();
+});
 
 var thisinh = mongoose.model('Candidate', CandidateSchema);
 module.exports = thisinh;
