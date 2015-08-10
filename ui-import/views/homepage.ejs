@@ -13,7 +13,8 @@ setTimeout(function sunrise () {
 
 var getSpreadSheetToken = function(school_id) {
     var spreadsheetToken = [
-        { school: "ftu", key: "1V1IOXuLxNhwKvFzeR0pVu-QgoY14h8wcYmizmhSyIUg" }  
+        { school: "ftu", key: "1V1IOXuLxNhwKvFzeR0pVu-QgoY14h8wcYmizmhSyIUg" },
+        { school: "ftu2", key: "1mQmJaMvfRzP5vdu3yzccoWSzCDmaDJedZ3EsvWE3DHM" }  
     ];
     
     for (var i in spreadsheetToken) {
@@ -46,7 +47,8 @@ var updateGoogleSpreadSheetToken = function() {
                         <p>
                                <select name="school_id" id="school_id" class="form-control" onChange="updateGoogleSpreadSheetToken()">
                                    <option value=""></option>
-                                   <option value="ftu">FTU (Ngoại thương HCM)</option>
+                                   <option value="ftu">FTU (Ngoại thương HN)</option>
+                                   <option value="ftu2">FTU (Ngoại thương CS2 HCM)</option>
                                    <option value="uit">UIT (CNTT)</option>
                                </select>
                         </p>
