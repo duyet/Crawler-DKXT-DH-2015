@@ -50,7 +50,7 @@ function PostCode(industry_number, ma_khoi) {
 			    if(err) {
 			        return console.log(err);
 			    }
-			    console.log(".");
+			    // console.log(".");
 			}); 
 		});
 
@@ -63,30 +63,36 @@ function PostCode(industry_number, ma_khoi) {
 			});
 
 			lr.on('line', function (line) {
-				try {
-					var line_data = JSON.parse(line);
-					var student = {
-						student_name: line_data.Hovaten || '',
-						student_id: line_data.Sobaodanh || '',
-						school_code: "KSA", // Ma~ truo`ng
-						faculty_code: industry_number_to_code(industry_number), // Nga`nh
-						faculty: industry_number_to_code(industry_number), // Nga`nh 
-						subject_group: tohopmon(ma_khoi),
-						priority: line_data.DoUutien, // So thu tu nguyen vong uu tien
-						//score_1 : { type: Number, default: 0 }, // Diem mon 1
-						//score_2 : { type: Number, default: 0 }, // Diem mon 2
-						//score_3 : { type: Number, default: 0 }, // Diem mon 3
-						score_priority: line_data.DiemUutien, // Diem uu tien
-						score_sum : line_data.DiemThi, // Tong so diem
-					};
-
-					var saver = new Student(student);
-					saver.save(function (err, data) {
-					  console.log('Saved ', data._id);
-					});
-				} catch (e) {
-					console.log("Parse data error, line: ", line);
-				}
+					line = line.replace("[", "").trim()
+					if (line.length) {
+						var line_data = JSON.parse(line) || false;
+						if (line_data) {
+							// console.log(line_data)
+							var student = {
+								student_name: line_data.Hovaten || '',
+								student_id: line_data.Sobaodanh || '',
+								school_code: "KSA", // Ma~ truo`ng
+								faculty_code: industry_number_to_code(industry_number), // Nga`nh
+								faculty: industry_number_to_code(industry_number), // Nga`nh 
+								subject_group: tohopmon(ma_khoi),
+								priority: line_data.DoUutien, // So thu tu nguyen vong uu tien
+								//score_1 : { type: Number, default: 0 }, // Diem mon 1
+								//score_2 : { type: Number, default: 0 }, // Diem mon 2
+								//score_3 : { type: Number, default: 0 }, // Diem mon 3
+								score_priority: line_data.DiemUutien, // Diem uu tien
+								score_sum : line_data.DiemThi, // Tong so diem
+							};
+		
+							var saver = new Student(student);
+							saver.save(function (err, data) {
+								if (err) console.log('Error ', err.message);
+								else console.log('Saved ', data._id);
+							});
+						}
+						
+					}
+					
+				
 
 			});
 
