@@ -33,10 +33,10 @@ var c = new Crawler({
 	    					if (index == 2) student.student_id = $(td).text();
 							if (index == 3) student.student_name = $(td).text();
 	    					if (index == 8) student.priority = parseInt($(td).text());
-	    					if (index == 7) student.score_priority = parseFloat($(td).text());
-							if (index == 6) student.score_sum = parseFloat($(td).text());
+	    					if (index == 6) student.score_priority = parseFloat($(td).text());
+							if (index == 7) student.score_sum = parseFloat($(td).text());
 	    			});
-	    			// console.log(student);
+	    			console.log(student);
 	    			var saver = new Student(student);
 					saver.save(function (err, st) {
 						console.log('Saved ['+ counter++ +'] ', st.student_id);
