@@ -23,7 +23,7 @@ var c = new Crawler({
 					var url_data = url_module.parse(result.request.href, true);
 					
 	    			var student = {};
-	    			student.school_code = "DDK";
+	    			student.school_code = url_data.query.matruong;
 	    			
 					student.faculty = url_data.query.manganh;
 					student.faculty_code = student.faculty;
