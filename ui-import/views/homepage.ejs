@@ -14,7 +14,9 @@ setTimeout(function sunrise () {
 var getSpreadSheetToken = function(school_id) {
     var spreadsheetToken = [
         { school: "ftu", key: "1V1IOXuLxNhwKvFzeR0pVu-QgoY14h8wcYmizmhSyIUg" },
-        { school: "ftu2", key: "1al8YXe2ZrMylnlgA-luGboX2IVomYTSACbXFF2Xy0fM" }  
+        { school: "ftu2", key: "1al8YXe2ZrMylnlgA-luGboX2IVomYTSACbXFF2Xy0fM" },
+        { school: "ussh", key: "1yUEekt_r5Kh9tnhF56jJYcCN--o6mEXXyPt9CPNSuB4" },
+      
     ];
     
     for (var i in spreadsheetToken) {
@@ -49,6 +51,7 @@ var updateGoogleSpreadSheetToken = function() {
                                    <option value=""></option>
                                    <option value="ftu">FTU (Ngoại thương HN)</option>
                                    <option value="ftu2">FTU (Ngoại thương CS2 HCM)</option>
+                                   <option value="ussh">USSH (Nhân Văn HCM)</option>
                                    <option value="uit">UIT (CNTT)</option>
                                </select>
                         </p>
