@@ -16,6 +16,7 @@ var CandidateSchema = new mongoose.Schema({
 	score_3 : { type: Number, default: 0 }, // Diem mon 3
 	score_priority: { type: Number, default: 0 }, // Diem uu tien
 	score_sum : { type: Number, default: 0 }, // Tong so diem
+	score_final : { type: Number, default: 0 }, // Tong so diem
 	
 	created: { type: Date },
 	lasted_update: { type: Date },
@@ -26,6 +27,8 @@ CandidateSchema.pre('save', function(next){
 	var now = new Date();
 	this.created = now;
 	this.lasted_update = now;
+
+	this.score_final = this.score_sum + this.score_priority;
 	
 	next();
 });
