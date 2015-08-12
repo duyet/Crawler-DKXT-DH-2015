@@ -16,6 +16,7 @@ var getSpreadSheetToken = function(school_id) {
         { school: "ftu", key: "1V1IOXuLxNhwKvFzeR0pVu-QgoY14h8wcYmizmhSyIUg" },
         { school: "ftu2", key: "1al8YXe2ZrMylnlgA-luGboX2IVomYTSACbXFF2Xy0fM" },
         { school: "ussh", key: "1yUEekt_r5Kh9tnhF56jJYcCN--o6mEXXyPt9CPNSuB4" },
+        { school: "other", key: "1ifOnqCJq2XBWF-nuZELOQ-jS1-9k2CoYPNtB0WboVZ0" }
       
     ];
     
@@ -52,7 +53,7 @@ var updateGoogleSpreadSheetToken = function() {
                                    <option value="ftu">FTU (Ngoại thương HN)</option>
                                    <option value="ftu2">FTU (Ngoại thương CS2 HCM)</option>
                                    <option value="ussh">USSH (Nhân Văn HCM)</option>
-                                   <option value="uit">UIT (CNTT)</option>
+                                   <option value="other">Khác</option>
                                </select>
                         </p>
                     </div>
@@ -71,13 +72,15 @@ var updateGoogleSpreadSheetToken = function() {
                                 <input type="text" class="form-control" id="google-spreadsheet" name="googlespreadsheet" placeholder="google-spreadsheet token">
                             </div>
                             
+                            <div class="form-group">
+                                <label>Mã trường</label>
+                                <input type="text" class="form-control" id="school_code" name="school_code" placeholder="school_code" />
+                            </div>
                             
                             <div class="form-group">
                                 <label>Mã ngành</label>
                                 <input type="text" class="form-control" id="faculty" name="faculty" placeholder="faculty">
                             </div>
-                            
-                            
                             
                         </p>
                     </div>
