@@ -3,6 +3,8 @@ var http = require('http');
 var fs = require('fs');
 var Student = require('../model');
 
+var count = 0;
+
 function PostCode(industry_number, ma_khoi) {
 	var post_data = '{"MaDotXet":"1","MaNganh":"'+ industry_number +'","MaKhoi":"'+ ma_khoi +'","MaUutien":"-1","ToDate":"8/3/2015"}';
 	// An object of options to indicate where to post to
@@ -86,7 +88,7 @@ function PostCode(industry_number, ma_khoi) {
 							var saver = new Student(student);
 							saver.save(function (err, data) {
 								if (err) console.log('Error ', err.message);
-								else console.log('Saved ', data._id);
+								else console.log('Saved ['+ count++ +'] ', data.student_id);
 							});
 						}
 						
