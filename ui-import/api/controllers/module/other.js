@@ -1,3 +1,87 @@
+/*
+var mongoose = require('mongoose');
+var Schema = mongoose.Schema;
+mongoose.createConnection('mongodb://localhost/admissions');
+
+var FacultySchema = new Schema({
+	name: {
+		type: String,
+		default: '',
+		required: 'Please fill Faculty name',
+		trim: true
+	},
+	code: {
+		type: String,
+		default: '',
+		required: 'Please fill Faculty code',
+		trim: true,
+		unique: true, 
+		index: true
+	},
+	school_name: {
+		type: String,
+		default: '',
+		required: 'Please fill Faculty name',
+		trim: true
+	},
+	school_code: {
+		type: String,
+		default: '',
+		required: 'Please fill Faculty code',
+		trim: true,
+		unique: true, 
+		index: true
+	},
+	subject_group: [{
+		type: String,
+		default: '',
+		required: 'Please fill Faculty group',
+		trim: true
+	}],
+	quota: {
+		type: Number,
+		default: 0,
+		required: 'Please fill Faculty quota',
+		trim: true
+	},
+	current: {
+		type: Number,
+		default: 0,
+		// required: 'Please fill Faculty quota',
+		trim: true
+	},
+	benchmark: {
+		type: Number,
+		default: 0,
+		// required: 'Please fill Faculty quota',
+		trim: true
+	},
+	matriculate_list: [Schema.Types.Mixed],
+	matriculate:{
+		type: Number,
+		default: 0,
+		// required: 'Please fill Faculty quota',
+		trim: true
+	},
+	candidate_apply: Schema.Types.Mixed,
+	candidate:{
+		type: Number,
+		default: 0,
+		// required: 'Please fill Faculty quota',
+		trim: true
+	},
+	candidate_check: [Schema.Types.Mixed],
+
+	created: {
+		type: Date,
+		default: Date.now
+	},
+
+});
+
+FacultySchema.index({school_code: 1, code: 1}, {unique: true});
+
+var FacultyModel = mongoose.model('Faculty', FacultySchema); */
 var Student = require("../../../../model");
 
 module.exports = function(req, res) {
@@ -38,49 +122,58 @@ module.exports = function(req, res) {
 						subject = subject.replace("Vật lí", "Lý");
 						subject = subject.replace("Hóa học", "Hóa"); 
 						
-						subject = subject.replace(",", "-");
-						subject = subject.replace(" ", "");
+						subject = subject.replace(/,/g, "-");
+						subject = subject.replace(/\s/g, "");
 						
 						return subject;
 					}
 					
-					for (var i = 0; i < 27; i++) {
-						var sheet = sheet_info.worksheets[i];
-						//console.log(sheet);
-						if (sheet) {
-							sheet.getRows( function( err, rows ){ 
-								//console.log(rows);
-					            if (rows) {
-									rows.forEach(function(row) {
-										// console.log(row);
-										var student = {
-						                      student_name: row["hoten"],
-						                      student_id: row["sbd"],
-						                      school_code: row["matruong"] || req.body.school_code ||  "", // Ma~ truo`ng
-						                      faculty_code: row["manganh"], // Nga`nh
-											  faculty: row["manganh"], // Nga`nh 
-						                      subject_group: row["tohopmon"],
-						                      priority: parseInt(row["sttnguyenvong"]),
-						                      score_1 : 0,
-						                      score_2 : 0,
-						                      score_3 : 0,
-						                      score_priority: parseFloat((row["diemuutien"] || "").replace(",", ".")),
-						                      score_sum : parseFloat(row["diemtong"].replace(",", "."))
-						                  };
-										  // console.log(student);
-										  
-										  if (student.score_sum > 0) {
-											  var saver = new Student(student);
-												saver.save(function (err, data) {
-													if (err) console.log('Error ', err.message);
-													else console.log('Saved ['+ count++ +'] ', data.student_id);
-												});
-										  }
-									})
-								}
-					        });	
+					for (var i = 0; i < 2; i++) {
+						if (i == 1) {
+							// Update schools 
+							//console.log("Sheet 1")
+						} else {
+							console.log("Sheet -> ", i)
+							var sheet = sheet_info.worksheets[i];
+							// console.log(sheet);
+							if (sheet) {
+								sheet.getRows( function( err, rows ){ 
+									// console.log(rows);
+						            if (rows) {
+										rows.forEach(function(row) {
+											// console.log(row);
+											var student = {
+							                      student_name: row["hoten"],
+							                      student_id: row["sbd"],
+							                      school_code: row["matruong"] || req.body.school_code ||  "", // Ma~ truo`ng
+							                      faculty_code: row["manganh"], // Nga`nh
+												  faculty: row["manganh"], // Nga`nh 
+							                      subject_group: getSubjectGroup(row["tohopmon"]),
+							                      priority: parseInt(row["sttnguyenvong"]),
+							                      score_1 : 0,
+							                      score_2 : 0,
+							                      score_3 : 0,
+							                      score_priority: parseFloat((row["diemuutien"] || "").replace(",", ".")),
+							                      score_sum : parseFloat(row["diemtong"].replace(",", "."))
+							                  };
+											  
+											  if (student.score_sum > 0) {
+												console.log(student);
+											  	
+												  var saver = new Student(student);
+													saver.save(function (err, data) {
+														if (err) console.log('Error ', err.message);
+														else console.log('Saved ['+ count++ +'] ', data.student_id);
+													});
+											  } else {
+												  console.log("Err ", student);
+											  }
+										})
+									}
+						        });	
+							}	
 						}
-				        
+						
 					}
 					res.send("Import ...<br />Please do not close this tab.");
 				}
