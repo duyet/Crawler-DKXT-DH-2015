@@ -1,7 +1,7 @@
 'use strict';
 
 var mongoose = require('mongoose');
-mongoose.connect('mongodb://localhost/admissions-dev');
+mongoose.connect('mongodb://localhost/admissions');
 
 var CandidateSchema = new mongoose.Schema({
 	student_name: String, // Ho va ten
