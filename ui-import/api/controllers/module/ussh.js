@@ -38,8 +38,8 @@ module.exports = function(req, res) {
 						subject = subject.replace("Vật lí", "Lý");
 						subject = subject.replace("Hóa học", "Hóa"); 
 						
-						subject = subject.replace(",", "-");
-						subject = subject.replace(" ", "");
+						subject = subject.replace(/,/g, "-");
+						subject = subject.replace(/\s/g, "");
 						
 						return subject;
 					}
