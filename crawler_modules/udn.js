@@ -13,7 +13,7 @@ var c = new Crawler({
     	//var rootUrl = result.request.href || '';
 
     	// Get data 
-    	var table = $('table tr');
+    	var table = $('#ctl00_ContentPlaceHolder1_lblContent table tr');
     	// console.log(table);
     	if (table.length) {
     		table.each(function(index, tr) {
@@ -32,17 +32,20 @@ var c = new Crawler({
 					var id = parseInt($(td[0]).text());
 					if (id && id > 0) {
 						td.each(function(index, td) {
-	    						if (index == 2) student.student_id = $(td).text();
+	    						if (index == 3) student.student_id = $(td).text();
 								if (index == 1) student.student_name = $(td).text();
-	    						if (index == 3) student.priority = parseInt($(td).text());
+	    						if (index == 4) student.priority = parseInt($(td).text());
 	    						if (index == 6) student.score_priority = getScorePriority($(td).text().trim());
-								if (index == 5) student.score_sum = parseFloat($(td).text());
+								if (index == 7) student.score_sum = parseFloat($(td).text());
 		    			});
-		    			//console.log(student);
+		    			// console.log(student);
 		    			var saver = new Student(student);
 						saver.save(function (err, st) {
-							console.log('Saved ['+ counter++ +'] ', st.student_id);
+							if (err) console.log(err.message);
+							else console.log('Saved ['+ counter++ +'] ', st.student_id);
 						});	
+					} else {
+						// console.log("===> ", td.text())
 					}
 	    		}
 	    	});
