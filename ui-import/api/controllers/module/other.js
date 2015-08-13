@@ -1,6 +1,6 @@
-/*
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
+
 mongoose.createConnection('mongodb://localhost/admissions');
 
 var FacultySchema = new Schema({
@@ -81,7 +81,7 @@ var FacultySchema = new Schema({
 
 FacultySchema.index({school_code: 1, code: 1}, {unique: true});
 
-var FacultyModel = mongoose.model('Faculty', FacultySchema); */
+var FacultyModel = mongoose.model('Faculty', FacultySchema); 
 var Student = require("../../../../model");
 
 module.exports = function(req, res) {
@@ -134,10 +134,9 @@ module.exports = function(req, res) {
 					}
 					
 					for (var i = 0; i < 2; i++) {
-						if (i == 1) {
-							// Update schools 
-							//console.log("Sheet 1")
-						} else {
+						if (req.body.faculty_import && (parseInt(req.body.faculty_import) - 1) == i) {
+							console.log("Import faculty");
+						} else if (!req.body.faculty_import_only) {
 							console.log("Sheet -> ", i)
 							var sheet = sheet_info.worksheets[i];
 							// console.log(sheet);
@@ -177,7 +176,7 @@ module.exports = function(req, res) {
 									}
 						        });	
 							}	
-						}
+						} else { console.log("req.body.faculty_import_only") }
 						
 					}
 					res.send("Import ...<br />Please do not close this tab.");
