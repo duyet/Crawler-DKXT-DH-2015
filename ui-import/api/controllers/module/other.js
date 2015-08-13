@@ -127,6 +127,11 @@ module.exports = function(req, res) {
 						
 						return subject;
 					}
+					var getFacultyCode = function(faculty) {
+						var re = /([A-Z][0-9]{5,6})/i
+						var f = faculty.match(re);
+						return f[0] || "";
+					}
 					
 					for (var i = 0; i < 2; i++) {
 						if (i == 1) {
@@ -146,7 +151,7 @@ module.exports = function(req, res) {
 							                      student_name: row["hoten"],
 							                      student_id: row["sbd"],
 							                      school_code: row["matruong"] || req.body.school_code ||  "", // Ma~ truo`ng
-							                      faculty_code: row["manganh"], // Nga`nh
+							                      faculty_code: getFacultyCode(row["manganh"]), // Nga`nh
 												  faculty: row["manganh"], // Nga`nh 
 							                      subject_group: getSubjectGroup(row["tohopmon"]),
 							                      priority: parseInt(row["sttnguyenvong"]),
