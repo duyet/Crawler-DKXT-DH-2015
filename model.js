@@ -21,7 +21,7 @@ var CandidateSchema = new mongoose.Schema({
 	created: { type: Date },
 	lasted_update: { type: Date },
 });
-CandidateSchema.index({student_id: 1, faculty_code: 1, school_code: 1}, {unique: true});
+CandidateSchema.index({student_id: 1, faculty_code: 1, faculty: 1, school_code: 1}, {unique: true});
 
 CandidateSchema.pre('save', function(next){
 	var now = new Date();
