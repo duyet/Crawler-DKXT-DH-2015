@@ -128,6 +128,7 @@ module.exports = function(req, res) {
 						return subject;
 					}
 					var getFacultyCode = function(faculty) {
+						if (faculty) return "";
 						var re = /([A-Z][0-9]{5,6})/i
 						var f = faculty.match(re);
 						return f[0] || "";
