@@ -1,0 +1,3 @@
+[submodule "ui-admissions"]
+	path = ui-admissions
+	url = https://github.com/PongPi/admissions
